@@ -1,10 +1,10 @@
 package com.example.appfirms.Config;
 
-public class Asignaturess {
+public class Firmas {
     private byte[] signature;
     private String id, nombre;
 
-    public Asignaturess(byte[] signature, String id, String nombre) {
+    public Firmas(byte[] signature, String id, String nombre) {
         this.signature = signature;
         this.id = id;
         this.nombre = nombre;

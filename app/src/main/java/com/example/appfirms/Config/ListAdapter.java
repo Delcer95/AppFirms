@@ -16,16 +16,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.appfirms.R;
+
 import java.util.List;
 
 public class ListAdapter extends ArrayAdapter<Firmas> implements View.OnClickListener {
 
     private List<Firmas> Firmas;
-    private android.content.Context Context;
+    private Context Context;
 
     DataBaseHelper Conexion;
     public ListAdapter(@NonNull Context context, List<Firmas> mData) {
-        super(context, R.layout.activity_signaturess, mData);
+        super(context, R.layout.activity_asignatures, mData);
         this.Context = context;
         this.Firmas = mData;
     }
@@ -46,7 +48,7 @@ public class ListAdapter extends ArrayAdapter<Firmas> implements View.OnClickLis
         View view = convertView;
 
         if (view == null){
-            view = LayoutInflater.from(Context).inflate(R.layout.activity_signaturess,null);
+            view = LayoutInflater.from(Context).inflate(R.layout.activity_asignatures,null);
         }
         ImageView imagen = view.findViewById(R.id.Imgfirma);
         TextView nombre = view.findViewById(R.id.txtNombre);
@@ -62,22 +64,16 @@ public class ListAdapter extends ArrayAdapter<Firmas> implements View.OnClickLis
         SQLiteDatabase db = Conexion.getReadableDatabase();
         Bitmap bitmap;
         String selectQuery = "SELECT signature FROM firmas WHERE id = ?";
-        // Ejecuta la consulta
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(id)});
-        // Verifica si se encontraron resultados
         if (cursor.moveToFirst()) {
-            // Obtiene los datos de la imagen en forma de arreglo de bytes
             byte[] imageData = cursor.getBlob(cursor.getColumnIndexOrThrow("signature"));
-            // Convierte los datos de la imagen en un objeto Bitmap
             bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
         }
         else{
             bitmap = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.limpiar);
         }
-        // Cierra el cursor y la conexión a la base de datos
         cursor.close();
         db.close();
         return bitmap;
     }
 }
-

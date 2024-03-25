@@ -1,5 +1,6 @@
 package com.example.appfirms;
 
+
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,8 +11,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.appfirms.Config.Asignaturess;
 import com.example.appfirms.Config.DataBaseHelper;
+import com.example.appfirms.Config.Firmas;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.List;
 public class ActivityLista extends AppCompatActivity {
 
     ListView listView;
-    List<Asignaturess> Firmas = new ArrayList<>();
+    List<Firmas> Firmas = new ArrayList<>();
     ListAdapter mAdapter;
     DataBaseHelper conexion;
     FloatingActionButton btnRegresar;
@@ -37,7 +38,7 @@ public class ActivityLista extends AppCompatActivity {
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed(); // Vuelve a la actividad anterior al presionar el botón
+                onBackPressed();
             }
         });
 
@@ -53,10 +54,8 @@ public class ActivityLista extends AppCompatActivity {
 
         SQLiteDatabase db = conexion.getReadableDatabase();
         Firmas firmas = null;
-        //Cursor de base de datos
         Cursor cursor = db.rawQuery(DataBaseHelper.SelectTable,null);
 
-        //Recorremos el cursor
         while (cursor.moveToNext()){
             firmas = new Firmas();
             firmas.setId(cursor.getString(0));
@@ -65,7 +64,6 @@ public class ActivityLista extends AppCompatActivity {
         }
         cursor.close();
     }
-
 
 
 }
